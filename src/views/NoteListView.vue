@@ -1,7 +1,9 @@
 <template>
   <div>
     <h1 class="title">Notes</h1>
+    
     <button @click="createNote" class="create-note-button">Create Note</button>
+    
     <ul class="note-list">
       <NoteItem v-for="note in notes" :key="note.id" :note="note" @delete="deleteNote" />
     </ul>
@@ -9,8 +11,7 @@
 </template>
 
 <script>
-// Import NoteItem from the correct path
-import NoteItem from '../components/NoteItem.vue'
+import NoteItem from './NoteItem.vue'; 
 
 export default {
   components: {
@@ -18,39 +19,43 @@ export default {
   },
   data() {
     return {
-      notes: []
-    }
+      notes: [] // Initialisation de la liste des notes
+    };
   },
   methods: {
+    // Méthode pour créer une nouvelle note
     createNote() {
-      const id = Date.now().toString()
+      const id = Date.now().toString(); // Génération d'un ID unique basé sur l'heure actuelle
       const newNote = {
         id,
         title: 'New Note',
         content: '',
         createdAt: new Date(),
         updatedAt: new Date()
-      }
-      this.notes.push(newNote)
-      this.saveNotes()
-      this.$router.push({ name: 'NoteEdit', params: { id } })
+      };
+      this.notes.push(newNote); // Ajout de la nouvelle note à la liste
+      this.saveNotes(); // Sauvegarde de la liste des notes dans le localStorage
+      this.$router.push({ name: 'NoteEdit', params: { id } }); // Redirection vers l'édition de la nouvelle note
     },
+    // Méthode pour supprimer une note
     deleteNote(id) {
-      this.notes = this.notes.filter(note => note.id !== id)
-      this.saveNotes()
+      this.notes = this.notes.filter(note => note.id !== id); // Filtrer la liste des notes pour exclure la note supprimée
+      this.saveNotes(); // Sauvegarde de la liste des notes mise à jour dans le localStorage
     },
+    // Méthode pour sauvegarder les notes dans le localStorage
     saveNotes() {
-      localStorage.setItem('notes', JSON.stringify(this.notes))
+      localStorage.setItem('notes', JSON.stringify(this.notes));
     },
+    // Méthode pour charger les notes depuis le localStorage
     loadNotes() {
-      const notes = localStorage.getItem('notes')
+      const notes = localStorage.getItem('notes'); // Récupération des notes du localStorage
       if (notes) {
-        this.notes = JSON.parse(notes)
+        this.notes = JSON.parse(notes); // Parsing des notes et mise à jour de la liste
       }
     }
   },
   mounted() {
-    this.loadNotes()
+    this.loadNotes(); // Chargement des notes lors du montage du composant
   }
 }
 </script>

@@ -1,23 +1,24 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import NoteListView from '../views/NoteListView.vue'
-import NoteEditView from '../views/NoteEditView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import NoteEditView from '../views/NoteEditView.vue';
 
 const routes = [
   {
     path: '/',
     name: 'NoteList',
-    component: NoteListView
+    component: {
+      template: '<NoteList />'
+    }
   },
   {
     path: '/note/:id',
     name: 'NoteEdit',
     component: NoteEditView
   }
-]
+];
 
 const router = createRouter({
   history: createWebHistory(),
   routes
-})
+});
 
-export default router
+export default router;
