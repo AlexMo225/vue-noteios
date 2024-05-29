@@ -48,8 +48,6 @@
   font-size: 1.5rem;
   }
   
-  .delete-button:hover {
-    background-color: #c82333;
-  }
+ 
   </style>
   

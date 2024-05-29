@@ -40,6 +40,9 @@ export default {
   computed: {
     // Calcul du nombre de mots dans le contenu de la note
     wordCount() {
+      if (this.note.content.trim() === "") {
+    return 0;
+  }
       return this.note.content.trim().split(/\s+/).length;
     }
   },
@@ -105,7 +108,7 @@ export default {
 }
 
 .back-button {
-  background-color: #007aff;
+  background-color: #7bb1ec;
   color: #fff;
   padding: 0.5rem 1rem;
   border-radius: 5px;
@@ -114,7 +117,7 @@ export default {
 }
 
 .back-button:hover {
-  background-color: #005bb5;
+  background-color: #be0606;
 }
 
 .title-input {
